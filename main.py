@@ -86,7 +86,7 @@ class Player(pygame.sprite.Sprite):
         self.angle = 0
         self.vel = 5
         self.max_bullet = 10
-        self.bullet_amount = 100
+        self.bullet_amount = 45
 
     def draw(self, window):
         # to calculate the angle between the mouse and player
@@ -145,10 +145,10 @@ class Player(pygame.sprite.Sprite):
             self.y -= self.vel
         if keys[pygame.K_s] and self.y + self.vel + self.get_height() - 10 < HEIGHT:
             self.y += self.vel  
-        if keys[pygame.K_SPACE] and len(self.bullet_hold) < self.max_bullet and self.bullet_amount >= 1:
+        if keys[pygame.MOUSEBUTTONDOWN] and len(self.bullet_hold) < self.max_bullet and self.bullet_amount >= 1:
             self.shoot()
         if keys[pygame.K_r] and self.bullet_amount < 24:
-            self.bullet_amount = 24
+            self.bullet_amount = 45
 
     def get_width(self):
         return self.img.get_width()
@@ -295,6 +295,8 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:  # Check for left mouse button click
+                player.shoot()
 
 
 
